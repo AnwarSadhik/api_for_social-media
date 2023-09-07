@@ -4,7 +4,14 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { authRoutes,commentRoutes,postRoutes,reelsRoutes,userRoutes,messagesRoutes } from "./routes/index.js"
+import {
+  authRoutes,
+  commentRoutes,
+  postRoutes,
+  reelsRoutes,
+  userRoutes,
+  messagesRoutes,
+} from "./routes/index.js";
 import multer from "multer";
 dotenv.config();
 import initializeSocketIO from "./utils/socket.js";
@@ -18,10 +25,9 @@ const server = http.createServer(app);
 app.use(cookieParser());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true }));
-app.use(multer().any())
+app.use(multer().any());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 const connectDatabase = async () => {
   try {
@@ -43,18 +49,18 @@ const StartServer = async () => {
 };
 
 // Routes handler
-app.get("/",(req,res) => {
+app.get("/", (req, res) => {
   res.send("API is running");
-})
+});
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/reels", reelsRoutes);
 app.use("/api/message", messagesRoutes);
-app.use((req,res) => {
-  res.status(404).send('Route not found');
-})
+app.use((req, res) => {
+  res.status(404).send("Route not found");
+});
 
 initializeSocketIO(server);
 
