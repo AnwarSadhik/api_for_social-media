@@ -10,6 +10,7 @@ dotenv.config();
 import initializeSocketIO from "./utils/socket.js";
 import http from "http";
 
+
 const PORT = process.env.PORT || 5005;
 const app = express();
 const server = http.createServer(app);
